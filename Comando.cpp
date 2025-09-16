@@ -4,5 +4,3 @@
 
 #include "Comando.h"
 
-void Comando::acionar(EnumComando comando) {
-}

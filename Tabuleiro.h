@@ -7,17 +7,19 @@
 #include <cstdint>
 
 #include "Comando.h"
+#include "Ponto.h"
 
 
 class Tabuleiro {
 public:
-    void imprimir();
+    void imprimir() const;
+
+    void desenhar(const Ponto &p);
 
 private:
     static constexpr int LINHAS = 20;
     static constexpr int COLUNAS = 20;
-    uint8_t matriz[LINHAS][COLUNAS]{0};
-    Comando comando;
+    uint8_t chao[LINHAS][COLUNAS]{0};
 };
 
 

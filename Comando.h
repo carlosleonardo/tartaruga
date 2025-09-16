@@ -7,9 +7,9 @@
 #include "EnumComando.h"
 
 
-class Comando {
-public:
-    void acionar(EnumComando comando);
+struct Comando {
+ EnumComando comando;
+ int valor; // usado apenas para mover
 };
 
 

@@ -6,10 +6,15 @@
 #define TARTARUGA_TARTARUGA_H
 #include "Comando.h"
 #include "Ponto.h"
+#include "Tabuleiro.h"
 
 
 class Tartaruga {
 public:
+    explicit Tartaruga(const Tabuleiro &tabuleiro)
+        : tabuleiro(tabuleiro) {
+    }
+
     void desenhar(bool baixarCaneta);
 
     void mover(int passos);
@@ -19,8 +24,11 @@ public:
     void virarEsquerda();
 
 private:
+    static constexpr int MAX_COMANDOS = 100;
     Ponto posicao{0, 0};
-    Comando comando;
+    Tabuleiro tabuleiro{};
+    Comando comandos[MAX_COMANDOS]{};
+    int totalComandos = 0;
 };
 
 
