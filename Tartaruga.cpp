@@ -45,7 +45,10 @@ void Tartaruga::mover(int passos) {
     // Desenhar no tabuleiro se a caneta estiver abaixada
     if (canetaAbaixada) {
         for (int i = 0; i < passos; i++) {
-            tabuleiro.desenhar({posicao.x, posicao.y });
+            tabuleiro.desenhar({posicao.x, posicao.y - i});
+        }
+        for (int i = 0; i < passos; i++) {
+            tabuleiro.desenhar({posicao.x - i, posicao.y});
         }
     }
 }
@@ -55,9 +58,9 @@ void Tartaruga::virarDireita() {
         totalComandos = MAX_COMANDOS - 1;
     }
     comandos[totalComandos++].comando = EnumComando::DIREITA;
-    angulo -= std::numbers::pi/2;
+    angulo -= std::numbers::pi / 2;
     if (angulo < 0.0) {
-        angulo += std::numbers::pi*2;
+        angulo += std::numbers::pi * 2;
     }
 }
 
@@ -66,9 +69,9 @@ void Tartaruga::virarEsquerda() {
         totalComandos = MAX_COMANDOS - 1;
     }
     comandos[totalComandos++].comando = EnumComando::ESQUERDA;
-    angulo += std::numbers::pi/2;
-    if (angulo >= std::numbers::pi*2) {
-        angulo -= std::numbers::pi*2;
+    angulo += std::numbers::pi / 2;
+    if (angulo >= std::numbers::pi * 2) {
+        angulo -= std::numbers::pi * 2;
     }
 }
 
