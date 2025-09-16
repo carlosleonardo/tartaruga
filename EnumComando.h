@@ -1,0 +1,18 @@
+//
+// Created by S861321135 on 16/09/2025.
+//
+
+#ifndef TARTARUGA_ENUMCOMANDO_H
+#define TARTARUGA_ENUMCOMANDO_H
+
+enum class EnumComando {
+    DIREITA,
+    ESQUERDA,
+    LEVANTAR_CANETA,
+    ABAIXAR_CANETA,
+    MOVER,
+    IMPRIMIR,
+    FIM
+};
+
+#endif //TARTARUGA_ENUMCOMANDO_H
