@@ -4,6 +4,9 @@
 
 #include "Tartaruga.h"
 
+#include <cmath>
+#include <numbers>
+
 void Tartaruga::desenhar(bool baixarCaneta) {
     if (totalComandos >= MAX_COMANDOS) {
         totalComandos = MAX_COMANDOS - 1;
@@ -13,6 +16,7 @@ void Tartaruga::desenhar(bool baixarCaneta) {
     } else {
         comandos[totalComandos++].comando = EnumComando::LEVANTAR_CANETA;
     }
+    canetaAbaixada = baixarCaneta;
 }
 
 void Tartaruga::mover(int passos) {
@@ -21,19 +25,27 @@ void Tartaruga::mover(int passos) {
     }
     comandos[totalComandos].comando = EnumComando::MOVER;
     comandos[totalComandos++].valor = passos;
-    // Se comando anterior for virar direita, mover para direita
-    if (totalComandos > 1 && comandos[totalComandos - 2].comando == EnumComando::DIREITA) {
-        posicao.x += passos;
-    } else if (totalComandos > 1 && comandos[totalComandos - 2].comando == EnumComando::ESQUERDA) {
-        posicao.x -= passos;
-    } else {
-        posicao.y += passos;
+
+    const int dy = static_cast<int>(-sin(angulo));
+    const int dx = static_cast<int>(cos(angulo));
+    posicao.x += dx * passos;
+    posicao.y += dy * passos;
+    // Limitar posicao ao tabuleiro
+    if (posicao.x < 0) {
+        posicao.x = 0;
+    } else if (posicao.x >= Tabuleiro::COLUNAS) {
+        posicao.x = Tabuleiro::COLUNAS - 1;
+    }
+    if (posicao.y < 0) {
+        posicao.y = 0;
+    } else if (posicao.y >= Tabuleiro::LINHAS) {
+        posicao.y = Tabuleiro::LINHAS - 1;
     }
 
     // Desenhar no tabuleiro se a caneta estiver abaixada
-    if (totalComandos > 1 && comandos[totalComandos - 2].comando == EnumComando::ABAIXAR_CANETA) {
+    if (canetaAbaixada) {
         for (int i = 0; i < passos; i++) {
-            tabuleiro.desenhar({posicao.x, posicao.y - i});
+            tabuleiro.desenhar({posicao.x, posicao.y });
         }
     }
 }
@@ -43,7 +55,10 @@ void Tartaruga::virarDireita() {
         totalComandos = MAX_COMANDOS - 1;
     }
     comandos[totalComandos++].comando = EnumComando::DIREITA;
-    posicao.x++;
+    angulo -= std::numbers::pi/2;
+    if (angulo < 0.0) {
+        angulo += std::numbers::pi*2;
+    }
 }
 
 void Tartaruga::virarEsquerda() {
@@ -51,5 +66,16 @@ void Tartaruga::virarEsquerda() {
         totalComandos = MAX_COMANDOS - 1;
     }
     comandos[totalComandos++].comando = EnumComando::ESQUERDA;
-    posicao.x--;
+    angulo += std::numbers::pi/2;
+    if (angulo >= std::numbers::pi*2) {
+        angulo -= std::numbers::pi*2;
+    }
+}
+
+void Tartaruga::terminarDesenho() {
+    if (totalComandos >= MAX_COMANDOS) {
+        totalComandos = MAX_COMANDOS - 1;
+    }
+    comandos[totalComandos++].comando = EnumComando::FIM;
+    tabuleiro.imprimir();
 }
