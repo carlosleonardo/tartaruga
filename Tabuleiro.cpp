@@ -12,7 +12,7 @@ void Tabuleiro::imprimir() const {
             if (chao[i][j]) {
                 std::cout << "*";
             } else {
-                std::cout << ".";
+                std::cout << " ";
             }
         }
         std::cout << std::endl;
@@ -20,7 +20,7 @@ void Tabuleiro::imprimir() const {
 }
 
 void Tabuleiro::desenhar(const Ponto &p) {
-    if (p.x >= 0 && p.x < LINHAS && p.y >= 0 && p.y < COLUNAS) {
+    if (p.x >= 0 && p.x < COLUNAS && p.y >= 0 && p.y < LINHAS) {
         chao[p.y][p.x] = 1;
     }
 }

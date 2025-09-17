@@ -10,10 +10,14 @@ int main() {
     tartaruga.desenhar(true);
     tartaruga.mover(5);
     tartaruga.virarDireita();
-    tartaruga.mover(3);
-    tartaruga.virarEsquerda();
-    tartaruga.mover(2);
+    tartaruga.mover(5);
+    tartaruga.virarDireita();
+    tartaruga.mover(5);
+    tartaruga.virarDireita();
+    tartaruga.mover(5);
+    tartaruga.virarDireita();
+    tartaruga.mover(5);
     tartaruga.desenhar(false);
-    tabuleiro.imprimir();
+    tartaruga.terminarDesenho();
     return 0;
 }

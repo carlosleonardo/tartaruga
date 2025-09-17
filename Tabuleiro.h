@@ -16,9 +16,9 @@ public:
 
     void desenhar(const Ponto &p);
 
-private:
     static constexpr int LINHAS = 20;
     static constexpr int COLUNAS = 20;
+private:
     uint8_t chao[LINHAS][COLUNAS]{0};
 };
 
